@@ -23,13 +23,11 @@ int main(){
 
     std::cout << "Entrez l'opération à effectuer (+, -, *, /): ";
     std::cin >> operation;
-
     double num1, num2;
     std::cout << "Entrez le premier nombre: ";
     std::cin >> num1;
     std::cout << "Entrez le second nombre: ";
-    std::cin >> num2;
-
+    char test = 1;
     double resultat;
 
     if(operation == '+') {
