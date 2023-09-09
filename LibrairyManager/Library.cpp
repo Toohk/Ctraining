@@ -10,7 +10,7 @@ void Library::addBook(const Book& book){
     books.push_back(book);
 }
 
-std::vector<Book> Library::getBooks() const{
+const std::vector<Book> Library::getBooks() const{
     return books;
 }
 

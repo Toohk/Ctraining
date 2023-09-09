@@ -13,7 +13,7 @@ class Library {
         Library(const std::vector<Book>& books);
 
         void addBook(const Book& book);
-        std::vector<Book> getBooks() const;
+        const std::vector<Book> getBooks() const;
         std::vector<Book> searchBookByNameOrAuthor(const std::string& input);
         void removeBook(const std::string& isbn);
         void updateBook(const std::string& isbn, const std::string& newAuthor, const std::string& newTitle, int newPublicationDate);
