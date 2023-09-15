@@ -9,17 +9,21 @@
 
 class Board {
     private:
-        int id_;
+        int id;
         std::string name;
         std::vector<std::string> columns;
         std::vector<Task> tasks;
 
     public:
         Board(
+            int id,
             const std::string& name,
             const std::vector<std::string>& columns,
             const std::vector<Task>& tasks
         );
+        
+        int getId() const;
+        void setId(int newId);
 
         std::string getName() const;
         void setName(const std::string& newName);

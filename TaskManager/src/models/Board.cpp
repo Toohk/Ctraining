@@ -6,17 +6,33 @@
 #include <vector>
 
 Board::Board(
+        int id,
         const std::string& name, 
         const std::vector<std::string>& columns, 
         const std::vector<Task>& tasks
-        ): name(name), columns(columns), tasks(tasks) {}
+        ): id(id), name(name), columns(columns), tasks(tasks) {}
 
+
+int Board::getId() const {
+    return id;
+}
+void Board::setId(int newId){
+    id = newId;
+}
 
 std::string Board::getName() const{
     return name;
 }
 void Board::setName(const std::string& newName){
     name = newName;
+}
+
+
+std::vector<std::string> Board::getColumns() const {
+    return columns;
+}
+void Board::setColumns(const std::vector<std::string>& newColumns){
+    columns = newColumns;
 }
 
 std::vector<Task> Board::getTasks() const{

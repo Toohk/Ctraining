@@ -14,5 +14,6 @@ add_executable(TaskManager
     src/models/Board.cpp 
     src/models/Task.cpp 
     src/utils/commands.cpp
+    src/utils/DBManager.cpp
 )
 

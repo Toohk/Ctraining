@@ -1,6 +1,7 @@
 #include "../../include/commands.h"
 #include "../../include/Task.h"
-
+#include "../../include/Board.h"
+#include "../../include/DBManager.h"
 #include <iomanip>
 #include <iostream>
 #include <iterator>
@@ -26,9 +27,51 @@ void cmd_unknown(const std::string& cmd) {
 }
 
 void cmd_create_board(){
-    auto creationDate = std::chrono::system_clock::from_time_t(10061998);
-    Task t1("dwadawd", "dwadawd", "dwdw",creationDate, creationDate);
-    std::cout << t1.getTitle();
+std::string name;
+    std::string columnsInput;
+    std::vector<std::string> columns;
+
+    std::cout << "\033[32mEnter Board Name:\033[0m ";
+    std::getline(std::cin, name);
+
+    std::cout << "\033[32mEnter Columns (separated by commas):\033[0m ";
+    std::getline(std::cin, columnsInput);
+
+    // Splitting the columns input string by commas and adding them to the columns vector
+    std::istringstream ss(columnsInput);
+    std::string column;
+    while(std::getline(ss, column, ',')) {
+        columns.push_back(column);
+    }
+
+    // Creating an empty tasks vector as we are just creating the board now
+    std::vector<Task> tasks;
+
+    // Creating a new Board instance
+    Board newBoard(0 ,name, columns, tasks);
+
+    // Inserting the new Board into the database
+    if(insertBoard(newBoard)) {
+        std::cout << "\033[34mBoard created successfully!\033[0m\n";
+    } else {
+        std::cout << "\033[31mFailed to create board.\033[0m\n";
+    }
+}
+
+void cmd_list_boards() {
+    std::vector<Board> boards = listBoards();
+
+    if (!boards.empty()) {
+        for (const auto& board : boards) {
+            std::cout << "ID: " << board.getId() << ", Name: " << board.getName() << ", Columns: ";
+            for (const auto& column : board.getColumns()) {
+                std::cout << column << ", ";
+            }
+            std::cout << std::endl;
+        }
+    } else {
+        std::cerr << "Erreur lors de la récupération de la liste des boards ou liste vide.\n";
+    }
 }
 
 void cmd_update_board(){
@@ -83,6 +126,7 @@ void run_cli() {
     commands["help"] = cmd_help;
     commands["create"] = cmd_create_board;
     commands["add"] = cmd_add_task;
+    commands["list"] = cmd_list_boards;
 
     std::string command;
     while (true) {
